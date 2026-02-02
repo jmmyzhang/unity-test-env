@@ -5,8 +5,8 @@ using UnityEngine;
 public class Slime : MonoBehaviour {
 
     public float damage = 1f;
-    public float knockbackForce = 30f;
-    public float moveSpeed = 1f;
+    public float knockbackForce = 10f;
+    public float moveSpeed = 500f;
     public DetectionZone detectionZone;
     Rigidbody2D rb;
     DamageableCharacter damageableCharacter;
@@ -27,7 +27,7 @@ public class Slime : MonoBehaviour {
         Collider2D collider = col.collider;
         IDamageable damageable = collider.GetComponent<IDamageable>();
 
-        if (damageable != null) {
+        if (damageable != null && collider.gameObject.tag == "Player") {
             Vector2 direction = (collider.transform.position - transform.position).normalized;
             Vector2 knockback = direction * knockbackForce;
             damageable.OnHit(damage, knockback);

@@ -58,12 +58,12 @@ public class PlayerController : MonoBehaviour {
             // cap movement speed at maxSpeed for any direction
             // rb.linearVelocity = Vector2.ClampMagnitude(rb.linearVelocity + (moveInput * moveSpeed * Time.deltaTime), maxSpeed);
 
-            rb.AddForce(moveInput * moveSpeed * Time.deltaTime);
+            rb.AddForce(moveInput * moveSpeed * Time.fixedDeltaTime, ForceMode2D.Force);
 
-            if (rb.linearVelocity.magnitude > maxSpeed) {
+            /* if (rb.linearVelocity.magnitude > maxSpeed) {
                 float limitedSpeed = Mathf.Lerp(rb.linearVelocity.magnitude, maxSpeed, idleFriction);
                 rb.linearVelocity = rb.linearVelocity.normalized * limitedSpeed;
-            }
+            } */
 
             // looking left or right
             if (moveInput.x > 0) {
@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour {
 
         } else {
             // no movement, interpolate velocity towards 0
-            rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, idleFriction);
+            // rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, idleFriction);
 
             IsMoving = false;
         }
