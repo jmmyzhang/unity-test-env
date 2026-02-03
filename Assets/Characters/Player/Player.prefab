@@ -347,3 +347,4 @@ MonoBehaviour:
   disableSimulation: 1
   canTurnInvincible: 1
   invincibilityLimit: 0.3
+  _maxHealth: 10

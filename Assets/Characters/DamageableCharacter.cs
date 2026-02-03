@@ -15,9 +15,18 @@ public class DamageableCharacter : MonoBehaviour, IDamageable {
     bool alive = true;
     private float invincibleTimeElapsed = 0f;
 
-    public float Health {
+    public float MaxHealth {
         set {
-            if (value < _health) {
+            _maxHealth = value;
+        }
+        get {
+            return _maxHealth;
+        }
+    }
+
+    public float CurrentHealth {
+        set {
+            if (value < _currentHealth) {
                 animator.SetTrigger("hit");
                 RectTransform textTransform = Instantiate(healthText).GetComponent<RectTransform>();
                 textTransform.transform.position = Camera.main.WorldToScreenPoint(gameObject.transform.position);
@@ -26,15 +35,15 @@ public class DamageableCharacter : MonoBehaviour, IDamageable {
                 textTransform.SetParent(canvas.transform);
             }
 
-            _health = value;
+            _currentHealth = value;
 
-            if (_health <= 0) {
+            if (_currentHealth <= 0) {
                 animator.SetBool("alive", false);
                 Targetable = false;
             }
         }
         get {
-            return _health;
+            return _currentHealth;
         }
     }
 
@@ -64,11 +73,13 @@ public class DamageableCharacter : MonoBehaviour, IDamageable {
         }    
     }
 
-    float _health = 3;
+    [SerializeField] float _maxHealth = 3f;
+    float _currentHealth;
     bool _targetable = true;
     bool _invincible = false;
 
     void Start() {
+        CurrentHealth = MaxHealth;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         physicsCollider = GetComponent<Collider2D>();
@@ -77,7 +88,7 @@ public class DamageableCharacter : MonoBehaviour, IDamageable {
 
     public void OnHit(float damage, Vector2 knockback) {
         if (!Invincible) {
-            Health -= damage;
+            CurrentHealth -= damage;
             rb.AddForce(knockback, ForceMode2D.Impulse);
             
             if (canTurnInvincible) {
@@ -88,7 +99,7 @@ public class DamageableCharacter : MonoBehaviour, IDamageable {
 
     public void OnHit(float damage) {
         if (!Invincible) {
-            Health -= damage;
+            CurrentHealth -= damage;
 
             if (canTurnInvincible) {
                 Invincible = true;
