@@ -6,8 +6,8 @@ public class SwordAttack : MonoBehaviour {
     public float swordDamage = 1f;
     public float knockbackForce = 15f;
     public Collider2D swordCollider;
-    public Vector3 faceRight = new Vector3(0.1014f, -0.141f, 0);
-    public Vector3 faceLeft = new Vector3(-0.1014f, -0.141f, 0);
+    public Vector3 faceRight = new Vector3(0.064f, -0.05f, 0);
+    public Vector3 faceLeft = new Vector3(-0.064f, -0.05f, 0);
     
     void Start() {
         if (swordCollider == null) {

@@ -255,7 +255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   knockbackForce: 10
-  moveSpeed: 500
+  moveSpeed: 350
   detectionZone: {fileID: 3739051914975486117}
 --- !u!95 &772229699531287911
 Animator:
